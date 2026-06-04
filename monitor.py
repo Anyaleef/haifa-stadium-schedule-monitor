@@ -1,15 +1,15 @@
 import hashlib
 import os
 import re
-import requests
-from bs4 import BeautifulSoup
+import requests #downloads webpage
+from bs4 import BeautifulSoup #extracts text from HTML
 
 URL = "https://www.haifa-stadium.co.il/%D7%9C%D7%95%D7%97_%D7%94%D7%9E%D7%A9%D7%97%D7%A7%D7%99%D7%9D_%D7%91%D7%90%D7%A6%D7%98%D7%93%D7%99%D7%95%D7%9F/"
-HASH_FILE = "last_hash.txt"
+HASH_FILE = "last_hash.txt" #sites fingerprint
 
 
 def fetch_page_text() -> str:
-    response = requests.get(
+    response = requests.get( #get page content
         URL,
         timeout=20,
         headers={
@@ -20,7 +20,7 @@ def fetch_page_text() -> str:
 
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # Remove noisy parts that can change without meaning.
+    #remove all unnecessary parts of the site that may change
     for tag in soup(["script", "style", "nav", "footer", "header"]):
         tag.decompose()
 
