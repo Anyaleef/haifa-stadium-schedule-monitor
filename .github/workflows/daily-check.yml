@@ -1,0 +1,40 @@
+name: Daily Stadium Schedule Check
+
+on:
+  schedule:
+    - cron: "0 17 * * *" #17:00 UTC summer -> 20:00 Israel
+  workflow_dispatch:
+
+
+permissions:
+  contents: write
+
+jobs:
+  check-page:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run monitor
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python monitor.py
+
+      - name: Commit updated hash
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add last_hash.txt
+          git diff --cached --quiet || git commit -m "Update stadium page hash"
+          git push
