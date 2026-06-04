@@ -1,6 +1,6 @@
 # Haifa Stadium Alert
 
-A Python-based website monitoring bot that checks the Haifa Stadium schedule page daily and sends a Telegram alert when new game information is published.
+Personal Python automation project that monitors the Haifa Stadium schedule page and sends an alert when new game information is published.
 
 ## Why I built this
 
