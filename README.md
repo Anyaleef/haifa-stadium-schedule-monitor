@@ -3,11 +3,6 @@
 Personal Python automation project that monitors the Haifa Stadium schedule page and sends an alert when new game information is published.
 
 
-## Status
-
-![Status](https://img.shields.io/badge/status-ongoing-red)
-
-
 ## Why I built this
 
 I live near Haifa Stadium, and on game days the traffic around the area can be a real headache.
