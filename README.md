@@ -1,4 +1,4 @@
-# Haifa Stadium Alert
+# Haifa Stadium Alert ![Status](https://img.shields.io/badge/status-ongoing-red)
 
 Personal Python automation project that monitors the Haifa Stadium schedule page and sends an alert when new game information is published.
 
