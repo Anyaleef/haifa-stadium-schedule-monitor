@@ -24,7 +24,7 @@ def fetch_page_text() -> str:
     for tag in soup(["script", "style", "nav", "footer", "header"]):
         tag.decompose()
 
-    text = soup.get_text(separator="\n")
+    text = soup.get_text("\n")
     text = re.sub(r"\n+", "\n", text)
     text = re.sub(r"[ \t]+", " ", text)
 
