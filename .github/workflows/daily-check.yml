@@ -2,9 +2,10 @@ name: Daily Stadium Schedule Check
 
 on:
   schedule:
-    - cron: "0 17 * * *" #17:00 UTC summer -> 20:00 Israel
-  workflow_dispatch:
+    - cron: "15 8 * * *"
+      timezone: "Asia/Jerusalem"
 
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,10 +16,10 @@ jobs:
 
     steps:
       - name: Check repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -31,10 +32,10 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python monitor.py
 
-      - name: Commit updated hash
+      - name: Commit updated state
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add last_hash.txt
-          git diff --cached --quiet || git commit -m "Update stadium page hash"
+          git add state.json
+          git diff --cached --quiet || git commit -m "Update stadium monitor state"
           git push
