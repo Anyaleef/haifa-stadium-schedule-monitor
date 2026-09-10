@@ -5,7 +5,7 @@ Personal Python automation project that monitors the Haifa Stadium schedule, det
 ## Live alerts
 
 Join the Telegram announcement channel to receive stadium schedule updates and game-day reminders:
-[Join the Haifa Stadium Alerts channel](YOUR_TELEGRAM_INVITE_LINK)
+[Haifa Stadium Alerts channel](https://t.me/+a9wMn-xBOO81YzBk)
 
 ## Why I built this
 
