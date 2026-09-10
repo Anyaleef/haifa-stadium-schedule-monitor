@@ -74,6 +74,7 @@ haifa-stadium-schedule-monitor/
 └── .github/
     └── workflows/
         └── daily-check.yml
+```
 
 ## Notifications
 
