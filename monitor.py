@@ -95,7 +95,7 @@ def parse_date(date_text):
 
     return {
         "iso": date_object.strftime("%Y-%m-%d"),
-        "display": date_object.strftime("%d/%m/%Y"),
+        "display": date_object.strftime("%d.%m.%Y"),
     }
 
 
@@ -200,20 +200,34 @@ def send_telegram_message(message):
 
 
 def format_new_games_message(games):
+    count = len(games)
+
+    if count == 1:
+        intro = "נוסף משחק חדש ללוח:"
+    else:
+        intro = f"נוספו {count} משחקים חדשים ללוח:"
+
     message = (
-        "🟢 <b>עדכון</b>\n"
-        "זוהו משחקים חדשים בלוח:\n"
+        "🟢 <b>עדכון לוח המשחקים</b>\n\n"
+        f"{intro}\n"
     )
 
     for number, game in enumerate(games, start=1):
         time = game["time"] or "שעה טרם פורסמה"
 
         message += (
-            f"\n{number}. {escape(game['display_date'])}\n"
-            f"   {escape(time)}\n"
-            f"   {escape(game['team1'])} vs "
-            f"{escape(game['team2'])}\n"
+            f"\n<b>{number}. "
+            f"{escape(game['team1'])} נגד "
+            f"{escape(game['team2'])}</b>\n"
+            f"📅 {escape(game['display_date'])}\n"
+            f"🕗 {escape(time)}\n"
         )
+
+    message += (
+            "\n🔗 <a href=\""
+            + URL
+            + "\">לוח המשחקים באתר סמי עופר</a>"
+    )
 
     return message
 
@@ -224,21 +238,17 @@ def format_today_reminder(game):
     team2 = escape(game["team2"])
 
     if game["time"]:
-        time_line = (
-            f"היום <b>{date}</b> "
-            f"בשעה <b>{escape(game['time'])}</b>"
-        )
+        time = escape(game["time"])
     else:
-        time_line = (
-            f"היום <b>{date}</b>\n"
-            "שעת המשחק טרם פורסמה"
-        )
+        time = "שעה טרם פורסמה"
 
     return (
-        "🔴 <b>תזכורת!</b>\n"
-        f"{time_line}\n"
-        "יש משחק באצטדיון סמי עופר\n"
-        f"{team1} vs {team2}"
+        "🔴 <b>תזכורת למשחק היום</b>\n\n"
+        f"<b>{team1} נגד {team2}</b>\n\n"
+        f"📅 {date}\n"
+        f"🕗 {time}\n"
+        "📍 אצטדיון סמי עופר\n\n"
+        "מומלץ להיערך לעומסי תנועה באזור."
     )
 
 
