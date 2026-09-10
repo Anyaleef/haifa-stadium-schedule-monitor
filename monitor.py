@@ -72,6 +72,20 @@ def send_telegram_message(message: str) -> None:
 
 def main() -> None:
     current_text = fetch_page_text()
+
+    ############### TEMPORARY ###############
+    # Diagnostic information
+    dates = re.findall(r"\b\d{2}/\d{2}/(?:\d{2}|\d{4})\b", current_text)
+
+    print(f"Fetched {len(current_text)} characters")
+    print(f"Found {len(dates)} dates:")
+    print(dates)
+
+    print("\n--- Page text preview ---")
+    print(current_text[:5000])
+    print("--- End preview ---\n")
+    ############### TEMPORARY ###############
+
     current_hash = calculate_hash(current_text)
     old_hash = read_old_hash()
 
