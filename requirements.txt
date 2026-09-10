@@ -1,5 +1,2 @@
-hashlib
-os
-re
 requests
 beautifulsoup4
