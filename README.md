@@ -42,12 +42,12 @@ The community is private, and join requests are reviewed before access is grante
 
 ## How it works
 
-The script downloads the Haifa Stadium schedule page and uses BeautifulSoup to extract the listed games.
-Each game is stored as structured data containing its competition, teams, date, and optional kickoff time.
-A game is identified using the two teams and the full competition name. Its date and kickoff time are treated as properties that may change.
-On each run, the current schedule is compared with the previous state stored in `state.json`.
-The monitor can then distinguish between a newly added game, a date or kickoff-time change, and a future game that was removed from the schedule.
-After processing the schedule, the current state is saved for the next run. The state file also keeps the most recent history entries for detected events and reminders.
+The monitor retrieves publicly available game schedule information and converts each listed game into structured data.
+
+Each game is identified using the two teams and the competition name, while its date and kickoff time are treated as details that may change.
+On each run, the latest schedule is compared with the previously saved state. The monitor can detect newly added games, changes to existing games, and future games that are no longer listed.
+
+The current state and a limited history of detected events are stored locally for comparison with future runs.
 
 ## Telegram notifications
 
