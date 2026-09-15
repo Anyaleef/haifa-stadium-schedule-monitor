@@ -1,30 +1,33 @@
 # Haifa Stadium Alert Bot ![Status](https://img.shields.io/badge/status-active-brightgreen)
 
-Personal Python automation project that monitors the Haifa Stadium schedule, detects newly published games, and sends Telegram alerts for schedule updates and game-day reminders.
+A personal Python automation project that monitors the official Haifa Stadium (aka סמי עופר) game schedule and sends Telegram alerts when relevant schedule information changes.
+
+## Why I built this
+
+I live near Haifa Stadium, and game days can cause significant traffic congestion in the surrounding area.
+Instead of manually checking the stadium website, this project monitors the schedule automatically and sends useful updates through Telegram.
 
 ## Live alerts
 
 Join the Telegram announcement channel to receive stadium schedule updates and game-day reminders:
 [Haifa Stadium Alerts channel](https://t.me/+a9wMn-xBOO81YzBk)
 
-## Why I built this
+## Features
 
-I live near Haifa Stadium, where game-day traffic can cause significant congestion and make leaving the area by car difficult.
-Instead of manually checking the stadium website every day, this project monitors the schedule automatically and sends notifications when new games are published or when a game is taking place that day.
-
-## What it does
-
-- Checks the official Haifa Stadium (aka סמי עופר) schedule page once per day
-- Extracts structured game information, including date, kickoff time, and teams
-- Compares the current schedule with the previously stored schedule
-- Sends a Telegram alert when new games are published
-- Sends a reminder on the morning of each game day
-- Prevents duplicate game-day reminders
+- Checks the official Haifa Stadium schedule page once per day
+- Parses individual games into structured data: competition, teams, date, and kickoff time
+- Detects newly published games 
+- Detects changes to an existing game's date or kickoff time
+- Detects future games that disappear from the published schedule
+- Handles games whose kickoff time has not yet been published 
+- Sends a reminder on the day of a scheduled game
+- Sends a Telegram warning if the website cannot be read or parsed correctly
+- Stores the latest schedule and a small event history in `state.json`
 - Runs automatically using GitHub Actions
 
 ## Tech stack
 
-- Python
+- Python 3.12
 - Requests
 - BeautifulSoup
 - Telegram Bot API
@@ -33,14 +36,25 @@ Instead of manually checking the stadium website every day, this project monitor
 ## How it works
 
 The script downloads the Haifa Stadium schedule page and uses BeautifulSoup to extract the listed games.
-Each game is stored with its date, kickoff time, teams, and competition information. The current schedule is compared with the previously saved schedule in `state.json`.
-If new games are detected, the bot sends a Telegram update listing them.
-On each daily run, the script also checks whether a game is taking place that day. If so, it sends a morning reminder and records that the reminder was already sent to prevent duplicates.
+Each game is stored as structured data containing its competition, teams, date, and optional kickoff time. T
+A game is identified using the two teams and the full competition name. Its date and kickoff time are treated as properties that may change.
+On each run, the current schedule is compared with the previous state stored in `state.json`. 
+The monitor can then distinguish between: A new game, a date or kickoff-time change, and a future game that was removed from the schedule.
+After processing the schedule, the current state is saved for the next run. The state file also keeps the most recent history entries for detected events and reminders.
+
+## Telegram notifications
+
+The bot sends different notifications depending on what changed:
+- 🟢 New game added
+- 🟡 Existing game date or kickoff time changed 
+- ⚠️ Future game removed from the published schedule 
+- 🔴 Game-day reminder
+- 🚨 Monitoring/parsing failure
 
 ## Environment variables
 
 The Telegram credentials are not stored in the code.
-They are stored as GitHub Actions secrets:
+They are provided through environment variables and configured as GitHub Actions secrets:
 ```Text
 TELEGRAM_BOT_TOKEN
 TELEGRAM_CHAT_ID
@@ -59,13 +73,17 @@ $env:TELEGRAM_CHAT_ID="your_chat_id"
 ```
 Run the script:
 ```bash
+export TELEGRAM_BOT_TOKEN="your_bot_token"
+export TELEGRAM_CHAT_ID="your_chat_id"
 python monitor.py
 ```
 
 ## Automation
 
-The project uses GitHub Actions to run the monitor once per day in the `Asia/Jerusalem` timezone.
-The workflow can also be triggered manually from the GitHub Actions tab for testing.
+GitHub Actions runs the monitor automatically once per day. The workflow can also be triggered manually from the Actions tab.
+The workflow commits changes to `state.json` back to the repository so that each future run can compare the current schedule with the previously observed state.
+
+If the monitor encounters an unexpected error, it attempts to send a Telegram failure notification and then exits with an error so the GitHub Actions run is visibly marked as failed.
 
 ## Project structure
 
@@ -81,8 +99,10 @@ haifa-stadium-schedule-monitor/
         └── daily-check.yml
 ```
 
-## Notifications
+## Limitations
 
-The bot sends two types of Telegram notifications:
-- 🟢 Schedule update when one or more new games are published
-- 🔴 Game-day reminder on the morning of a scheduled game
+The parser depends on the structure and wording of the official stadium website.
+Significant changes to the site's HTML or schedule format may require an update to the parser.
+The monitor is designed to fail visibly rather than silently accept an empty or unreadable schedule.
+
+A competition-name change is treated as a different game identity. In that case, the monitor may report the previous entry as removed and the updated entry as newly added.
