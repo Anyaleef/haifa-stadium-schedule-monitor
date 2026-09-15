@@ -4,7 +4,7 @@ A personal Python automation project that monitors the official Haifa Stadium (a
 
 ## Why I built this
 
-I live near Haifa Stadium, and game days can cause significant traffic congestion in the surrounding area.
+Game days at Haifa Stadium can cause significant traffic congestion and road delays in the surrounding area.
 Instead of manually checking the stadium website, this project monitors the schedule automatically and sends useful updates through Telegram.
 
 ## Live alerts
