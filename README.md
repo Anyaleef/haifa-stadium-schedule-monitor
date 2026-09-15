@@ -18,7 +18,7 @@ Join the Telegram announcement channel to receive stadium schedule updates and g
 - Parses individual games into structured data: competition, teams, date, and kickoff time
 - Detects newly published games 
 - Detects changes to an existing game's date or kickoff time
-- Detects future games that disappear from the published schedule
+- Detects future games that disappear from the published schedule, while ignoring removals on or after the scheduled game date
 - Handles games whose kickoff time has not yet been published 
 - Sends a reminder on the day of a scheduled game
 - Sends a Telegram warning if the website cannot be read or parsed correctly
@@ -36,10 +36,10 @@ Join the Telegram announcement channel to receive stadium schedule updates and g
 ## How it works
 
 The script downloads the Haifa Stadium schedule page and uses BeautifulSoup to extract the listed games.
-Each game is stored as structured data containing its competition, teams, date, and optional kickoff time. T
+Each game is stored as structured data containing its competition, teams, date, and optional kickoff time.
 A game is identified using the two teams and the full competition name. Its date and kickoff time are treated as properties that may change.
-On each run, the current schedule is compared with the previous state stored in `state.json`. 
-The monitor can then distinguish between: A new game, a date or kickoff-time change, and a future game that was removed from the schedule.
+On each run, the current schedule is compared with the previous state stored in `state.json`.
+The monitor can then distinguish between a newly added game, a date or kickoff-time change, and a future game that was removed from the schedule.
 After processing the schedule, the current state is saved for the next run. The state file also keeps the most recent history entries for detected events and reminders.
 
 ## Telegram notifications
@@ -63,18 +63,26 @@ TELEGRAM_CHAT_ID
 ## Running locally
 
 Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
-Set the environment variables:
-```bash
+
+#### Windows PowerShell
+
+```powershell
 $env:TELEGRAM_BOT_TOKEN="your_bot_token"
 $env:TELEGRAM_CHAT_ID="your_chat_id"
+
+python monitor.py
 ```
-Run the script:
+
+#### macOS / Linux
+
 ```bash
 export TELEGRAM_BOT_TOKEN="your_bot_token"
 export TELEGRAM_CHAT_ID="your_chat_id"
+
 python monitor.py
 ```
 
