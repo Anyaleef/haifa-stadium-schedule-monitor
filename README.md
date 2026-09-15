@@ -16,9 +16,13 @@ Instead of manually checking the stadium website, this project monitors the sche
 
 ## Live alerts
 
-Join the Telegram announcement channel to receive stadium schedule updates and game-day reminders:
-[Haifa Stadium Alerts channel](https://t.me/+a9wMn-xBOO81YzBk)
-(This is an unofficial community project and is not affiliated with the stadium).
+Join the private Telegram community to receive Haifa Stadium schedule updates, changes, and game-day reminders:
+
+[Haifa Stadium Alerts community](https://t.me/+a9wMn-xBOO81YzBk)
+
+The community is private, and join requests are reviewed before access is granted.
+
+> This is an independent, unofficial community project and is not affiliated with or endorsed by Sammy Ofer Stadium.
 
 ## Features
 
