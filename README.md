@@ -124,3 +124,9 @@ Significant changes to the site's HTML or schedule format may require an update 
 The monitor is designed to fail visibly rather than silently accept an empty or unreadable schedule.
 
 A competition-name change is treated as a different game identity. In that case, the monitor may report the previous entry as removed and the updated entry as newly added.
+
+## License
+
+This project is licensed under the MIT License.
+The MIT License applies only to the original source code in this repository.
+Third-party names, trademarks, and information remain the property of their respective owners.
