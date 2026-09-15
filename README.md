@@ -1,4 +1,4 @@
-# Haifa Stadium Alert Bot ![Status](https://img.shields.io/badge/status-active-brightgreen)
+# Haifa Stadium Alert Bot ![Status](https://img.shields.io/badge/status-active-brightgreen) ![Use](https://img.shields.io/badge/use-personal%20project-blue)
 
 A personal Python automation project that tracks publicly available Haifa Stadium game schedule information and sends Telegram alerts when relevant schedule information changes.
 
