@@ -2,6 +2,8 @@
 
 A personal Python automation project that tracks publicly available Haifa Stadium game schedule information and sends Telegram alerts when relevant schedule information changes.
 
+> [!CAUTION]
+> **Disclaimer:** This is an independent, unofficial community project and is not affiliated with or endorsed by Sammy Ofer Stadium.
 ## Disclaimer
 
 This is an independent, unofficial, private project and is not affiliated with, endorsed by, or operated by Haifa Stadium or Sammy Ofer Stadium.
