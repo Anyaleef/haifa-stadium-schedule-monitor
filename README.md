@@ -1,6 +1,13 @@
 # Haifa Stadium Alert Bot ![Status](https://img.shields.io/badge/status-active-brightgreen)
 
-A personal Python automation project that monitors the official Haifa Stadium (aka סמי עופר) game schedule and sends Telegram alerts when relevant schedule information changes.
+A personal Python automation project that tracks publicly available Haifa Stadium game schedule information and sends Telegram alerts when relevant schedule information changes.
+
+## Disclaimer
+
+This is an independent, unofficial project and is not affiliated with, endorsed by, or operated by Haifa Stadium or Sammy Ofer Stadium.
+
+The MIT License applies only to the source code contained in this repository.
+Third-party names, trademarks, website content, and other third-party materials remain the property of their respective owners.
 
 ## Why I built this
 
@@ -11,6 +18,7 @@ Instead of manually checking the stadium website, this project monitors the sche
 
 Join the Telegram announcement channel to receive stadium schedule updates and game-day reminders:
 [Haifa Stadium Alerts channel](https://t.me/+a9wMn-xBOO81YzBk)
+(This is an unofficial community project and is not affiliated with the stadium).
 
 ## Features
 
