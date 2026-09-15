@@ -4,10 +4,7 @@ A personal Python automation project that tracks publicly available Haifa Stadiu
 
 ## Disclaimer
 
-This is an independent, unofficial project and is not affiliated with, endorsed by, or operated by Haifa Stadium or Sammy Ofer Stadium.
-
-The MIT License applies only to the source code contained in this repository.
-Third-party names, trademarks, website content, and other third-party materials remain the property of their respective owners.
+This is an independent, unofficial, private project and is not affiliated with, endorsed by, or operated by Haifa Stadium or Sammy Ofer Stadium.
 
 ## Why I built this
 
@@ -129,4 +126,4 @@ A competition-name change is treated as a different game identity. In that case,
 
 This project is licensed under the MIT License.
 The MIT License applies only to the original source code in this repository.
-Third-party names, trademarks, and information remain the property of their respective owners.
+Third-party names, trademarks, website content, and other third-party materials remain the property of their respective owners.
