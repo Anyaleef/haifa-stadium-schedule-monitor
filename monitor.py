@@ -1,3 +1,4 @@
+import time
 import json
 import os
 import re
@@ -26,15 +27,44 @@ TIME_PATTERN = re.compile(
 
 # WEBSITE PARSING
 def fetch_page_lines():
-    response = requests.get(
-        URL,
-        timeout=20,
-        headers={
-            "User-Agent": "Mozilla/5.0 (compatible; HaifaStadiumMonitor/1.0)"
-        },
-    )
+    max_attempts = 2
 
-    response.raise_for_status()
+    for attempt in range(1, max_attempts + 1):
+        try:
+            print(
+                f"Fetching stadium website "
+                f"(attempt {attempt}/{max_attempts})..."
+            )
+
+            response = requests.get(
+                URL,
+                timeout=20,
+                headers={
+                    "User-Agent":
+                        "Mozilla/5.0 "
+                        "(compatible; HaifaStadiumMonitor/1.0)"
+                },
+            )
+
+            response.raise_for_status()
+            break
+
+        except (
+            requests.exceptions.Timeout,
+            requests.exceptions.ConnectionError,
+        ) as error:
+            if attempt == max_attempts:
+                raise RuntimeError(
+                    "Could not connect to the stadium website "
+                    f"after {max_attempts} attempts."
+                ) from error
+
+            print(
+                "Website connection failed. "
+                "Retrying in 60 seconds..."
+            )
+
+            time.sleep(60)
 
     soup = BeautifulSoup(response.text, "html.parser")
 
